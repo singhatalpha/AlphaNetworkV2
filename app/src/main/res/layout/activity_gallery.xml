@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="addpost.gallery">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar_gallery"
+        android:layout_height="?actionBarSize"
+        android:background="@color/design_default_color_primary"
+        android:titleTextColor="#FFFFFF">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <Spinner
+                android:layout_width="200dp"
+                android:id="@+id/spinner"
+                android:layout_marginRight="20dp"
+                android:layout_height="match_parent">
+
+            </Spinner>
+
+<!--            <Button-->
+<!--                android:id="@+id/share"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:background="@drawable/buttonstyle"-->
+<!--                android:textColor="@color/blue"-->
+<!--                android:text="Share"-->
+<!--                android:layout_height="wrap_content" />-->
+
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler_view"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+<!--        <Button-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:id="@+id/noOfSelectImgBtn"-->
+<!--            android:text="OK"-->
+<!--            android:textColor="@color/blue"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:background="@drawable/buttonstyle"-->
+<!--            android:shadowColor="@color/light_grey"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_height="70dp">-->
+
+<!--        </Button>-->
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "com.example.alphanetwork"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+//    implementation'com.android.support:support-core-ui:28.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+//    implementation 'com.google.android.exoplayer:exoplayer:2.10.4'
+
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'id.zelory:compressor:2.1.0'
+//Times Formater
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+//    implementation 'com.google.android.material:material:1.0.0'
+
+
+    implementation 'com.yayandroid:LocationManager:2.3.0'
+
+
+    implementation "androidx.camera:camera-camera2:1.0.0-beta03"
+    implementation "androidx.camera:camera-core:1.0.0-beta03"
+    implementation "androidx.camera:camera-lifecycle:1.0.0-beta03"
+    implementation "androidx.camera:camera-view:1.0.0-alpha10"
+//    implementation "androidx.camera:camera-extensions:1.0.0-alpha10"
+    implementation 'me.jessyan:insgallery:0.5.0'
+
+//    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.8'
+//    implementation 'com.github.yalantis:ucrop:2.2.5-native'
+}

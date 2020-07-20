@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="5dp"
+        android:elevation="10dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:id="@+id/relLayout1">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imgView_proPic"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/alphanotext"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#FF000000"
+                />
+
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Vikram Singh Nain.........."
+                android:maxLength="22"
+                android:layout_toRightOf="@+id/imgView_proPic"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_name"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+
+                android:maxLength="18"
+                android:layout_toRightOf="@+id/tv_name"
+                android:layout_marginLeft="12dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_position"
+                android:textColor="#35E4DE"
+                />
+
+
+            <ImageView
+                android:id="@+id/ivEllipses"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:icon="@drawable/ic_ellipses"
+                app:srcCompat="@drawable/ic_ellipses" />
+
+        </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout11"
+        android:layout_below="@+id/relLayout1">
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:text="This is Status"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout12"
+        android:layout_below="@+id/relLayout11">
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/view_pager_media"
+                >
+
+            </androidx.viewpager.widget.ViewPager>
+
+    </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/relLayout12">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabMaxWidth="10dp" />
+
+
+            <RelativeLayout
+                android:id="@+id/likeLayout"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_height="match_parent">
+
+
+
+                <RelativeLayout
+                    android:id="@+id/likeLayout11"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_liked"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@mipmap/ic_redheart" />
+
+                <ImageView
+                    android:id="@+id/image_like"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="visible"
+                    app:srcCompat="@mipmap/ic_heart" />
+
+                    </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="16sp"
+                    android:id="@+id/tv_likescount"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toRightOf="@+id/likeLayout11"
+                    android:layout_marginLeft="4dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/image_disliked"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_likescount"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@mipmap/ic_redheartdislike" />
+
+
+                <ImageView
+                    android:id="@+id/image_dislike"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_likescount"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="visible"
+                    app:srcCompat="@mipmap/ic_heartdislike" />
+
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_toRightOf="@+id/likeLayout"
+                android:layout_centerVertical="true"
+
+                android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200k"
+                android:textColor="@color/dark_grey"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/tv_comments"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/speech_bubble"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_comments"
+                android:visibility="visible"
+                android:layout_marginLeft="5dp"
+
+                app:srcCompat="@mipmap/ic_roundcomment" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 DAYS AGO"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_time"
+                android:layout_marginEnd="15dp"/>
+
+        </RelativeLayout>
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/relLayout3"-->
+<!--            android:layout_below="@+id/relLayout2"-->
+<!--            android:padding="10dp"-->
+<!--            android:layout_marginBottom="50dp">-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="Liked by Mitch, Tom, Mohammed and 30 others"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="18sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/tv_like"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="mitch.tabian moutains #earthporn #mountains"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="18sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/image_caption"&ndash;&gt;-->
+<!--&lt;!&ndash;                &ndash;&gt;-->
+<!--&lt;!&ndash;                />&ndash;&gt;-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="View all 3 comments"-->
+<!--                android:textColor="@color/grey"-->
+<!--                android:textSize="18sp"-->
+<!--                android:id="@+id/tv_comments"-->
+<!--                />-->
+
+<!--            -->
+
+<!--        </RelativeLayout>-->
+
+    </RelativeLayout>
+
+
+<!--<include layout="@layout/layout_bottom_navigation_view"/>-->
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

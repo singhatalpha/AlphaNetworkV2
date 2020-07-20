@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_color_white"
+    tools:context="com.example.alphanetwork.addmedia.pictureselector.MainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/gradientbackground">
+
+        <ImageView
+            android:id="@+id/left_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@color/app_color_transparent"
+            android:padding="15dp"
+            android:src="@drawable/picture_icon_back"
+            android:visibility="visible" />
+
+
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/buttonstyle"
+            android:layout_toLeftOf="@+id/shareanonymous"
+            android:layout_marginEnd="10dp"
+            android:textSize="12sp"
+            android:text="Post"
+            android:textColor="@color/blue" />
+        <Button
+            android:id="@+id/shareanonymous"
+            android:layout_width="wrap_content"
+            android:textColor="@color/blue"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="12sp"
+            android:background="@drawable/buttonstyle"
+            android:text="Post Anonymously"
+            android:layout_height="wrap_content" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_right"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginRight="5dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/app_color_white"-->
+<!--            android:textSize="15sp" />-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title"
+        android:clipChildren="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:layout_gravity="top"
+            android:orientation="horizontal"
+            android:id="@+id/relLayoutpinky"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/circle"
+                    android:src="@drawable/alphanotext"
+                    android:layout_height="90dp">
+
+                </de.hdodenhof.circleimageview.CircleImageView>
+                <ProgressBar
+                    android:layout_width="60dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:background="@drawable/drawable_circle_dark_blue"
+                    android:progressDrawable="@drawable/drawable_circle_yellow"
+                    android:layout_marginStart="10dp"
+                    android:indeterminate="false"
+                    android:id="@+id/editTextPrgBar"
+                    android:max="120"
+                    android:progress="100"
+                    android:rotation="-90"
+                    android:layout_marginEnd="5dp"
+                    android:layout_height="110dp">
+                </ProgressBar>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="60dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/gallery"
+                    app:srcCompat="@drawable/ic_image_black_24dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_height="110dp">
+                </androidx.appcompat.widget.AppCompatImageView>
+
+
+            </LinearLayout>
+
+
+            <EditText
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:gravity="start"
+                android:maxLength="120"
+                android:id="@+id/postcontent"
+                android:layout_weight="80"
+                android:layout_height="match_parent"
+                android:background="@drawable/editbox">
+
+
+            </EditText>
+
+
+        </LinearLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_delete_text"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:background="@color/app_color_red"-->
+<!--            android:drawableTop="@drawable/picture_icon_delete"-->
+<!--            android:drawablePadding="5dp"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingTop="8dp"-->
+<!--            android:paddingBottom="8dp"-->
+<!--            android:text="Drag to Delete"-->
+<!--            android:textColor="@color/app_color_white"-->
+<!--            android:textSize="12sp"-->
+<!--            android:visibility="gone"-->
+<!--            tools:visibility="visible" />-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:orientation="vertical">
+
+                <include layout="@layout/layout_number" />
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/recycler"
+            android:layout_alignBottom="@+id/recycler"
+            android:background="@color/app_color_white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_below="@+id/relLayoutpinky"
+            android:overScrollMode="never" />
+
+    </RelativeLayout>
+</RelativeLayout>

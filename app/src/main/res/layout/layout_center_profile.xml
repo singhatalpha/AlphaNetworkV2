@@ -1,0 +1,846 @@
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightGrey"
+        android:id="@+id/relLayout1">
+
+
+
+        <!-- ********************Middle Section*************************** -->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/relLayout2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/relLayout1"-->
+<!--            android:background="@color/white">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linLayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="100">-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="25dp"-->
+<!--                    android:layout_weight="25"-->
+<!--                    android:layout_marginLeft="25dp">-->
+
+<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                        android:id="@+id/profile_photo"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        app:civ_border_color="@color/black"-->
+<!--                        app:civ_border_width="0.5dp"/>-->
+
+
+<!--                </RelativeLayout>-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="30dp"-->
+<!--                    android:layout_marginStart="30dp"-->
+<!--                    android:layout_weight="75">-->
+
+<!--                    <include layout="@layout/snippet_top_profile"/>-->
+
+<!--                </RelativeLayout>-->
+
+<!--            </LinearLayout>-->
+
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linLayout2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/linLayout"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="20dp"-->
+<!--                android:background="@drawable/white_grey_border_bottom">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/display_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Mitch"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/description"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:text="I live in Vancouver, BC"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="16sp"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/website"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:text="https://codingwithmitch.com"-->
+<!--                    android:textColor="@color/blue"-->
+<!--                    android:textSize="16sp"-->
+<!--                    />-->
+
+
+<!--            </LinearLayout>-->
+
+
+
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="405dp"
+                android:id="@+id/relLayout2">
+
+
+
+
+
+
+                <RelativeLayout
+                    android:background="@drawable/gradientbackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:orientation="vertical">
+
+<!--                    <Button-->
+<!--                        android:id="@+id/follow"-->
+<!--                        android:textColor="@color/blue"-->
+<!--                        android:background="@drawable/buttonstyle"-->
+<!--                        android:layout_marginTop="110dp"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="follow"/>-->
+
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_photo"
+                        android:layout_marginTop="40dp"
+
+                        android:layout_gravity="center_horizontal"
+
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/alpha"/>
+
+                    <TextView
+                        android:id="@+id/display_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profile_photo"
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_centerHorizontal="true"
+                        android:text="Loading.."
+                        android:textColor="#FDFFFFFF"
+                        android:textSize="27sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/position"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/display_name"
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_centerHorizontal="true"
+                        android:text="Sarpanch"
+                        android:textColor="#2CC9C9"
+                        android:textSize="27sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="110dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginTop="70dp"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_toRightOf="@id/profile_photo">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="20dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:id="@+id/imgview1"-->
+<!--                        app:srcCompat="@drawable/fire"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        >-->
+
+<!--                    </ImageView>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/popularity"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:text="999k"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--&lt;!&ndash;                        <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="30dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="30dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:id="@+id/imgview2"&ndash;&gt;-->
+<!--&lt;!&ndash;                            app:srcCompat="@drawable/fire"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_centerHorizontal="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_gravity="center_horizontal"&ndash;&gt;-->
+<!--&lt;!&ndash;                            >&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        </ImageView>&ndash;&gt;-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/temp"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Influence"-->
+<!--                            android:layout_centerHorizontal="true"-->
+<!--                            android:layout_gravity="center_horizontal"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/influence"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="40dp"-->
+<!--                            android:text="9M"-->
+<!--                            android:layout_centerHorizontal="true"-->
+<!--                            android:layout_gravity="center_horizontal"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+                </RelativeLayout>
+                <androidx.cardview.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="400dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="275dp"
+                    card_view:cardCornerRadius="30dp"
+                    card_view:contentPadding="7dp"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Popularity"
+                                android:textSize="20sp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_influence"
+                                android:text="0"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                android:paddingTop="10dp"
+                                android:textColor="@color/blue"/>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/tvFollowers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ProfileViews"
+                                android:textSize="20sp"
+                                />
+                            <TextView
+                                android:id="@+id/tv_popularity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                android:paddingTop="10dp"
+                                android:textColor="@color/blue"/>
+
+                        </LinearLayout>
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_height="match_parent">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvFollowing"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Following"-->
+<!--                                android:textSize="20sp"-->
+<!--                                />-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvFollowingCount"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="360"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:textSize="20sp"-->
+<!--                                android:paddingTop="10dp"-->
+<!--                                android:textColor="@color/blue"/>-->
+
+<!--                        </LinearLayout>-->
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_below="@+id/relLayout2">
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+<!--                    android:layout_width="400dp"-->
+<!--                    android:layout_height="130dp"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    card_view:cardCornerRadius="30dp"-->
+<!--                    card_view:contentPadding="7dp"-->
+<!--                    card_view:cardElevation="3dp"-->
+<!--                    card_view:cardUseCompatPadding="true"-->
+<!--                    >-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <RelativeLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content">-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_highlights"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="20sp"-->
+<!--                            android:textColor="@color/blue"-->
+<!--                            android:text="Highlights"/>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_highlightsVoteTotal"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textColor="@color/blue"-->
+<!--                            android:text="100Up 20Down"-->
+<!--                             />-->
+
+<!--                        </RelativeLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_highlight1"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="20sp"-->
+<!--                            android:text="Alpha"/>-->
+
+
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
+                <androidx.cardview.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="400dp"
+                    android:layout_height="130dp"
+                    android:layout_centerHorizontal="true"
+                    card_view:cardCornerRadius="30dp"
+                    card_view:contentPadding="7dp"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_commitments"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/blue"
+                        android:text="Commitments"/>
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_commitmentsVoteTotal"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textColor="@color/blue"-->
+<!--                            android:text="100+ 20-"/>-->
+
+                        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_commitment1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="None"/>
+                    <TextView
+                        android:id="@+id/tv_dot"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="....."/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+<!--                    android:layout_width="400dp"-->
+<!--                    android:layout_height="130dp"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    card_view:cardCornerRadius="30dp"-->
+<!--                    card_view:contentPadding="7dp"-->
+<!--                    card_view:cardElevation="3dp"-->
+<!--                    card_view:cardUseCompatPadding="true"-->
+<!--                    >-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical">-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_passions"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="20sp"-->
+<!--                            android:textColor="@color/blue"-->
+<!--                            android:text="Passions"/>-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_passion1"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="20sp"-->
+<!--                            android:text="Entrepreneurship"/>-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_passion2"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="20sp"-->
+<!--                            android:text="Gymming"/>-->
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="400dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="30dp"
+                    app:contentPadding="7dp"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="true"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_crew"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/blue"
+                            android:text="Pack"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp">
+
+<!--                            <RelativeLayout-->
+<!--                                android:layout_width="90dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                                    android:id="@+id/crew1"-->
+<!--                                    android:gravity="center_horizontal"-->
+<!--                                    android:layout_width="70dp"-->
+<!--                                    android:layout_height="70dp"-->
+<!--                                    android:src="@drawable/dp"-->
+<!--                                    android:layout_centerHorizontal="true"-->
+<!--                                    />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tv_crew1"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="20dp"-->
+<!--                                    android:layout_below="@+id/crew1"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:autoSizeMaxTextSize="15sp"-->
+<!--                                    android:autoSizeMinTextSize="8sp"-->
+<!--                                    android:autoSizeTextType="uniform"-->
+<!--                                    android:layout_centerHorizontal="true"-->
+<!--                                    android:gravity="center_horizontal"-->
+<!--                                    android:text="Canada"-->
+<!--                                    android:textColor="#000" />-->
+<!--                            </RelativeLayout>-->
+
+<!--                            <RelativeLayout-->
+<!--                                android:layout_width="90dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                                    android:id="@+id/crew2"-->
+<!--                                    android:gravity="center_horizontal"-->
+<!--                                    android:layout_width="70dp"-->
+<!--                                    android:layout_height="70dp"-->
+<!--                                    android:src="@drawable/dp"-->
+<!--                                    android:layout_centerHorizontal="true"-->
+<!--                                    />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tv_crew2"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="20dp"-->
+<!--                                    android:layout_below="@+id/crew2"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:autoSizeMaxTextSize="15sp"-->
+<!--                                    android:autoSizeMinTextSize="8sp"-->
+<!--                                    android:autoSizeTextType="uniform"-->
+<!--                                    android:layout_centerHorizontal="true"-->
+<!--                                    android:gravity="center_horizontal"-->
+<!--                                    android:text="Canada"-->
+<!--                                    android:textColor="#000" />-->
+<!--                            </RelativeLayout>-->
+
+<!--                            <RelativeLayout-->
+<!--                                android:layout_width="90dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                                    android:id="@+id/crew3"-->
+<!--                                    android:gravity="center_horizontal"-->
+<!--                                    android:layout_width="70dp"-->
+<!--                                    android:layout_height="70dp"-->
+<!--                                    android:src="@drawable/dp"-->
+<!--                                    android:layout_centerHorizontal="true"-->
+<!--                                    />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tv_crew3"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="20dp"-->
+<!--                                    android:layout_below="@+id/crew3"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:autoSizeMaxTextSize="15sp"-->
+<!--                                    android:autoSizeMinTextSize="8sp"-->
+<!--                                    android:autoSizeTextType="uniform"-->
+<!--                                    android:layout_centerHorizontal="true"-->
+<!--                                    android:gravity="center_horizontal"-->
+<!--                                    android:text="Canada"-->
+<!--                                    android:textColor="#000" />-->
+<!--                            </RelativeLayout>-->
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/imgView_pack"
+                                    android:gravity="center_horizontal"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:src="@drawable/alpha"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_weight="1"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tv_pack"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="100dp"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="8sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center_horizontal|center_vertical"
+                                    android:text="Janta Dal"
+                                    android:layout_weight="1"
+                                    android:textColor="#000" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </LinearLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="400dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="30dp"
+                    app:contentPadding="7dp"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="true"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_asdasdas"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/blue"
+                            android:text="Party"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp">
+
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/imgView_party"
+                                    android:gravity="center_horizontal"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:src="@drawable/alpha"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_weight="1"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tv_party"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="100dp"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="8sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center_horizontal|center_vertical"
+                                    android:text="BJP"
+                                    android:layout_weight="1"
+                                    android:textColor="#000" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </LinearLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:layout_marginTop="25dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingLeft="25dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="36dp"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        app:srcCompat="@drawable/ic_description"/>-->
+<!--                    <TextView-->
+<!--                        android:textStyle="bold"-->
+
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        android:text="Add to group"/>-->
+<!--                </LinearLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_marginTop="25dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingLeft="25dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="36dp"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        app:srcCompat="@drawable/ic_description"/>-->
+<!--                    <TextView-->
+<!--                        android:textStyle="bold"-->
+
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        android:text="Show all comments"/>-->
+<!--                </LinearLayout>-->
+
+
+
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/relLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linLayout2"
+                android:layout_marginTop="20dp"
+                >
+<!--                android:layout_marginBottom="50dp"-->
+
+
+
+<!--                    <android.support.v4.view.ViewPager-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:id="@+id/view_pager_profile"-->
+<!--                        >-->
+
+<!--                    </android.support.v4.view.ViewPager>-->
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_media_static"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    android:text="Media"/>
+
+
+
+                <Utils.ExpandableHeightGridView
+                    android:layout_below="@+id/tv_media_static"
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="1dp">
+
+
+                </Utils.ExpandableHeightGridView>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
+
+</merge>
