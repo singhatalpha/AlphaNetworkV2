@@ -249,7 +249,7 @@ public class EditProfileFragment extends Fragment {
                 parts.add(body);
 
         }
-        else {
+
             Toast.makeText(getActivity(), "Saving.......Please Wait.", Toast.LENGTH_SHORT).show();
 
             Call<ResponseBody> call = RetrofitClient
@@ -276,7 +276,7 @@ public class EditProfileFragment extends Fragment {
                 }
             });
 
-        }
+
     }
 
     private static class OnResultCallbackListenerImpl implements OnResultCallbackListener<LocalMedia> {
@@ -294,6 +294,7 @@ public class EditProfileFragment extends Fragment {
                 url = result.get(0).getPath();
             }
         }
+
 
         @Override
         public void onCancel() {

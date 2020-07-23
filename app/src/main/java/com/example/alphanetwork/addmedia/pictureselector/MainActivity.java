@@ -620,17 +620,17 @@ public class MainActivity extends AppCompatActivity {
                         RequestBody.create(MediaType.parse("multipart/form-data"), LONG);
                 RequestBody latitude =
                         RequestBody.create(MediaType.parse("multipart/form-data"), LAT);
+                mtitle = findViewById(R.id.postcontent);
+                String Title = mtitle.getText().toString();
 
                 if(LONG=="NULL"){
                     Toast.makeText(getApplication(), "Please Enable Location, We need location for the feed", Toast.LENGTH_LONG).show();
 
                 }
+                else if(urls.size() == 0 && Title.equals("")){
+                    Toast.makeText(getApplication(), "Empty Posts Not Allowed", Toast.LENGTH_LONG).show();
+                }
                 else{
-
-
-                    mtitle = findViewById(R.id.postcontent);
-                    String Title = mtitle.getText().toString();
-
 
                     List<MultipartBody.Part> parts = new ArrayList<>();
 
