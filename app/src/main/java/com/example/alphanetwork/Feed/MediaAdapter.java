@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.VideoView;
+//import android.widget.VideoView;
+import com.danikula.videocache.HttpProxyCacheServer;
+import com.devbrackets.android.exomedia.ui.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -27,11 +29,15 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.devbrackets.android.exomedia.ExoMedia;
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.example.alphanetwork.R;
+import Utils.MyApp;
+
 
 import Utils.Utils;
 
-public class MediaAdapter extends Fragment {
+public class MediaAdapter extends Fragment implements OnPreparedListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -47,6 +53,7 @@ public class MediaAdapter extends Fragment {
     private OnFragmentInteractionListener mListener;
     public Context context;
     public static MediaController mediaController;
+    public String typeof;
 //    public ProgressBar progressBar;
 
 
@@ -73,10 +80,12 @@ public class MediaAdapter extends Fragment {
 
 
 
-    public static MediaAdapter newInstance(String media, Context context) {
+    public static MediaAdapter newInstance(String media, Context context,String type) {
         MediaAdapter fragment = new MediaAdapter(context);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, media);
+        args.putString("type",type);
+
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -88,6 +97,7 @@ public class MediaAdapter extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             link = getArguments().getString(ARG_PARAM1);
+            typeof = getArguments().getString("type");
         }
         context = getActivity();
     }
@@ -104,7 +114,7 @@ public class MediaAdapter extends Fragment {
         System.out.println("thiis reached onview created");
         mImage = view.findViewById(R.id.imageplayer);
 //        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-//        mVideo = view.findViewById(R.id.videoplayer);
+        mVideo = view.findViewById(R.id.videoplayer);
 //        mTest = view.findViewById(R.id.test);
         bar = view.findViewById(R.id.progress);
         init();
@@ -122,9 +132,9 @@ public class MediaAdapter extends Fragment {
 //                    .into(mImage);
 //        }
         if (link != null) {
-//            if (link.endsWith(".mp4")) {
-//                mVideo.setVisibility(View.VISIBLE);
-//
+            if (typeof.equals("video")) {
+
+                mVideo.setVisibility(View.VISIBLE);
 //                mediaController = new MediaController(getActivity());
 //                mediaController.setAnchorView(mVideo);
 //                mVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -133,17 +143,19 @@ public class MediaAdapter extends Fragment {
 //                        bar.setVisibility(getView().GONE);
 //                    }
 //                });
-//
-////                mVideo.setVideoPath(link);
-////                bar.setVisibility(View.GONE);
-////                mVideo.start();
-//                mImage.setVisibility(View.GONE);
-//
-//            } else {
+//                mVideo.setVideoPath(link);
+//                mVideo.start();
 
-//                mVideo.setVisibility(View.GONE);
-//                mImage.setVisibility(View.VISIBLE);
+                mVideo.setOnPreparedListener(this);
+                HttpProxyCacheServer proxy = getProxy();
+                String proxyUrl = proxy.getProxyUrl(link);
+                mVideo.setVideoURI(Uri.parse(proxyUrl));
+                mImage.setVisibility(View.GONE);
 
+            } else {
+
+                mVideo.setVisibility(View.GONE);
+                mImage.setVisibility(View.VISIBLE);
                 RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.ic_launcher_background);
                 requestOptions.error(Utils.getRandomDrawbleColor());
@@ -158,34 +170,34 @@ public class MediaAdapter extends Fragment {
 //                        .dontAnimate()
 //                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
 //                        .into(mImage);
-            System.out.println("Entered if with link: " + link);
-            mImage.setVisibility(View.VISIBLE);
+                System.out.println("Entered if with link: " + link);
+                mImage.setVisibility(View.VISIBLE);
 
-            Glide.with(this)
-                    .load(link)
-                    .apply(requestOptions)
-                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            System.out.println("Glide Load Failed ....Hate glide" );
-                            System.out.println(e);
-                            return false;
-                        }
+                Glide.with(this)
+                        .load(link)
+                        .apply(requestOptions)
+                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                System.out.println("Glide Load Failed ....Hate glide");
+                                System.out.println(e);
+                                return false;
+                            }
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            System.out.println("Glide worked...damn" );
-                            bar.setVisibility(View.GONE);
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                System.out.println("Glide worked...damn");
+                                bar.setVisibility(View.GONE);
 
-                            return false;
-                        }
-                    })
+                                return false;
+                            }
+                        })
 //                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .dontAnimate()
-                    .into(mImage);
+                        .dontAnimate()
+                        .into(mImage);
 
-            System.out.println("Crossed Glide");
+                System.out.println("Crossed Glide");
 
 //                File cacheDir = StorageUtils.getCacheDirectory(context);
 //                ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
@@ -237,6 +249,7 @@ public class MediaAdapter extends Fragment {
 ////            mVideo.setVisibility(View.GONE);
 //            mImage.setVisibility(View.GONE);
 //        }
+        }
     }
 
     public void onButtonPressed(Uri uri) {
@@ -265,6 +278,17 @@ public class MediaAdapter extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onPrepared() {
+        //Starts the video playback as soon as it is ready
+        mVideo.start();
+        bar.setVisibility(View.GONE);
+    }
+
+    private HttpProxyCacheServer getProxy() {
+        return MyApp.getProxy(context);
     }
 
 }

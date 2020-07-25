@@ -204,7 +204,7 @@ public class CreatePartyActivity extends AppCompatActivity {
 
                     if(response.code()==200){
                         Toast.makeText(CreatePartyActivity.this, "Party Created", Toast.LENGTH_SHORT).show();
-                        Intent intent =  new Intent(CreatePartyActivity.this, PartyActivity.class);
+                        Intent intent =  new Intent(CreatePartyActivity.this, ProfileActivity.class);
                         startActivity(intent);
                     }
 

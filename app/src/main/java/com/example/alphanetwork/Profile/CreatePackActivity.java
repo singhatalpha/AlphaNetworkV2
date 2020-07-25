@@ -207,7 +207,7 @@ public class CreatePackActivity extends AppCompatActivity {
 
                 if(response.code()==200){
                     Toast.makeText(CreatePackActivity.this, "Pack Created", Toast.LENGTH_SHORT).show();
-                    Intent intent =  new Intent(CreatePackActivity.this, PackActivity.class);
+                    Intent intent =  new Intent(CreatePackActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
 

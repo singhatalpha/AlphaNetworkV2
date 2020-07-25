@@ -193,33 +193,33 @@ public class ViewPostAdapter extends RecyclerView.Adapter<ViewPostAdapter.MyView
 
 //        viewPager.setAdapter(adapter);
 //        viewPager.setCurrentItem(0);
-            ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-
-                @Override
-                public void onPageSelected(int position) {
-//                System.out.println(viewPager);
-                    System.out.println("view pager");
-
-                    MediaAdapter one = (MediaAdapter) receive.mediaFragments.get(holder.vp.getCurrentItem());
-                    System.out.println("fragement : " + one);
-                    if(one.link.endsWith(".mp4")){
-                        one.bar.setVisibility(View.VISIBLE);
-                        one.mVideo.setMediaController(MediaAdapter.mediaController);
-//                System.out.println(one.uri);
-//                    one.mVideo.setVideoURI(Uri.parse(one.link));
-                        one.mVideo.setVideoURI(Uri.parse(one.link));
-                        one.mVideo.requestFocus();
-                        one.mVideo.start();}
-//                else
-//                {
-//                    ((MediaAdapter)receive.mediaFragments.get(holder.vp.getCurrentItem()-1)).mVideo.stopPlayback();
-//                    Glide.with(MainActivity.this).load(one.url).into(one.iv);
-//                }
-
-                }
-            };
+//            ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
 //
-            holder.vp.addOnPageChangeListener(pageChangeListener);
+//                @Override
+//                public void onPageSelected(int position) {
+////                System.out.println(viewPager);
+//                    System.out.println("view pager");
+//
+//                    MediaAdapter one = (MediaAdapter) receive.mediaFragments.get(holder.vp.getCurrentItem());
+//                    System.out.println("fragement : " + one);
+//                    if(one.link.endsWith(".mp4")){
+//                        one.bar.setVisibility(View.VISIBLE);
+//                        one.mVideo.setMediaController(MediaAdapter.mediaController);
+////                System.out.println(one.uri);
+////                    one.mVideo.setVideoURI(Uri.parse(one.link));
+//                        one.mVideo.setVideoURI(Uri.parse(one.link));
+//                        one.mVideo.requestFocus();
+//                        one.mVideo.start();}
+////                else
+////                {
+////                    ((MediaAdapter)receive.mediaFragments.get(holder.vp.getCurrentItem()-1)).mVideo.stopPlayback();
+////                    Glide.with(MainActivity.this).load(one.url).into(one.iv);
+////                }
+//
+//                }
+//            };
+////
+//            holder.vp.addOnPageChangeListener(pageChangeListener);
 
 
 
@@ -313,6 +313,19 @@ public class ViewPostAdapter extends RecyclerView.Adapter<ViewPostAdapter.MyView
         ModelFeed modelFeed = posts.get(i);
         List<String> urls = modelFeed.getMedia();
 
+
+
+        String video = modelFeed.getVideo();
+        String type = "media";
+        if(!video.equals("")) {
+            urls.clear();
+            urls.add(modelFeed.getVideo());
+            type = "video";
+        }
+
+
+
+
         if(urls.size() == 0)
         {
             return null;
@@ -328,7 +341,7 @@ public class ViewPostAdapter extends RecyclerView.Adapter<ViewPostAdapter.MyView
         for(int j = 0; j < urls.size(); j++)
         {
             System.out.println(urls.get(j));
-            one = MediaAdapter.newInstance(urls.get(j),context);
+            one = MediaAdapter.newInstance(urls.get(j),context,type);
             pagerAdapter.mediaFragments.add(one);
 
         }

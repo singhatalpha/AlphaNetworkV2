@@ -263,6 +263,9 @@ public class EditProfileFragment extends Fragment {
                                        Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), "Done", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getActivity(), ProfileActivity.class);
+//                i.putExtra(getString(R.string.calling_activity), 1);
+                        getActivity().startActivity(i);
                     }
                     String m = response.message();
                     System.out.println(m);

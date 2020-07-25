@@ -9,7 +9,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "com.example.alphanetwork"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -69,7 +69,15 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha10"
 //    implementation "androidx.camera:camera-extensions:1.0.0-alpha10"
     implementation 'me.jessyan:insgallery:0.5.0'
-
 //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.8'
 //    implementation 'com.github.yalantis:ucrop:2.2.5-native'
+
+    implementation 'com.github.AbedElazizShe:LightCompressor:0.6.0'
+    implementation 'com.devbrackets.android:exomedia:4.3.0'
+    implementation 'com.danikula:videocache:2.7.1'
+//    implementation 'com.vincan:medialoader:1.0.0'
+//    implementation 'com.iceteck.silicompressorr:silicompressor:2.2.3'
+//    implementation 'com.googlecode.mp4parser:isoparser:1.1.21'
+
+
 }

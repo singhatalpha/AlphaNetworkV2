@@ -76,6 +76,17 @@ public interface Api {
 
     );
 
+    @Multipart
+    @POST("articles/addvideopost")
+    Call<ResponseBody> addVideoPost(
+            @Part("title") RequestBody title,
+            @Part("longitude") RequestBody longitude,
+            @Part("latitude") RequestBody latitude,
+//            @Part("description") RequestBody description,
+            @Part List<MultipartBody.Part> video
+
+    );
+
     @FormUrlEncoded
     @POST("articles/addanonymouspost")
     Call<ResponseBody> addAnonymousPost(

@@ -8,8 +8,11 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -28,16 +31,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.abedelazizshe.lightcompressorlibrary.CompressionListener;
+import com.abedelazizshe.lightcompressorlibrary.VideoCompressor;
+import com.abedelazizshe.lightcompressorlibrary.VideoQuality;
 import com.example.alphanetwork.Home.Home;
 import com.example.alphanetwork.R;
 import com.example.alphanetwork.Retrofit.RetrofitClient;
 import com.example.alphanetwork.addmedia.pictureselector.adapter.GridImageAdapter;
 import com.example.alphanetwork.addmedia.pictureselector.listener.DragListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.broadcast.BroadcastAction;
 import com.luck.picture.lib.broadcast.BroadcastManager;
@@ -57,6 +65,9 @@ import com.luck.picture.lib.tools.ValueOf;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private GridImageAdapter mAdapter;
     private int maxSelectNum = 7;
-    private TextView tv_select_num;
+    private TextView tv_select_num,message;
     private TextView tvDeleteText;
     private ImageView left_back, minus, plus, add;
     private RadioGroup rgb_style;
@@ -90,9 +101,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView gallery;
     private Button share, anonymousshare;
     public static List<LocalMedia>  urls = new ArrayList<>();
+    public String videourl = null;
+    public String compressedvideo = null;
     private SharedPreferences sharedPref;
     public String LONG,LAT;
     public EditText mtitle;
+    private ProgressBar pb;
 
 
 
@@ -104,10 +118,38 @@ public class MainActivity extends AppCompatActivity {
         } else {
             clearCache();
         }
+
+
+
+
+
+
+
+        urls.clear();
+        File dir1 = new File(getContext().getExternalFilesDir(null)+ "/Movies/TrimVideos");
+
+
+        if (dir1.isDirectory())
+        {
+            String[] children = dir1.list();
+            for (int i = 0; i < children.length; i++)
+            {
+                new File(dir1, children[i]).delete();
+            }
+        }
+
+
+
+
+
+
+
+
         setContentView(R.layout.activity_addmedia);
 
         tv_select_num = findViewById(R.id.tv_select_num);
-
+        message = findViewById(R.id.message);
+        pb = findViewById(R.id.progressBar);
         gallery = findViewById(R.id.gallery);
         InsGallery.setCurrentTheme(InsGallery.THEME_STYLE_DARK);
 
@@ -229,6 +271,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplication(), "Uploading, Please Wait.", Toast.LENGTH_LONG).show();
                     postJSON();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
             }
@@ -455,14 +499,61 @@ public class MainActivity extends AppCompatActivity {
                     urls = selectList;
                     System.out.println("====================================");
                     System.out.println(selectList);
+                    if(urls.size()==1){
+                        String testurl = urls.get(0).getCutPath();
+                        if(testurl==null){
+                            testurl = urls.get(0).getPath();
+                        }
+                        boolean iv = isVideoFile(testurl);
+                        if(iv){
+                            videourl = testurl;
 
-                    // 例如 LocalMedia 里面返回五种path
-                    // 1.media.getPath(); 原图path
-                    // 2.media.getCutPath();裁剪后path，需判断media.isCut();切勿直接使用
-                    // 3.media.getCompressPath();压缩后path，需判断media.isCompressed();切勿直接使用
-                    // 4.media.getOriginalPath()); media.isOriginal());为true时此字段才有值
-                    // 5.media.getAndroidQToPath();Android Q版本特有返回的字段，但如果开启了压缩或裁剪还是取裁剪或压缩路径；注意：.isAndroidQTransform 为false 此字段将返回空
-                    // 如果同时开启裁剪和压缩，则取压缩路径为准因为是先裁剪后压缩
+//                            new VideoCompressAsyncTask(this).execute("false", videourl, getContext().getExternalFilesDir(null)+ "/Movies");
+                            String output = videourl+"compressed";
+                            VideoCompressor.INSTANCE.start(videourl, output, new CompressionListener() {
+                                @Override
+                                public void onStart() {
+                                    // Compression start
+                                    message.setVisibility(View.VISIBLE);
+                                    pb.setVisibility(View.VISIBLE);
+                                    share.setEnabled(false);
+                                }
+
+                                @Override
+                                public void onSuccess() {
+                                    // On Compression success
+//                    filePath[0] = videourl;
+                                    compressedvideo = output;
+                                    message.setVisibility(View.GONE);
+                                    pb.setVisibility(View.GONE);
+                                    share.setEnabled(true);
+                                    Toast.makeText(getApplication(), "Compression Successful. Please tap Post.", Toast.LENGTH_LONG).show();
+
+                                }
+
+                                @Override
+                                public void onFailure(String failureMessage) {
+                                    System.out.println(failureMessage);
+                                    Toast.makeText(getApplication(), "Already Compressed.Please tap Post.", Toast.LENGTH_LONG).show();
+                                    message.setVisibility(View.GONE);
+                                    pb.setVisibility(View.GONE);
+                                    share.setEnabled(true);
+                                    // On Failure
+                                }
+
+                                @Override
+                                public void onProgress(float v) {
+                                    // Update UI with progress value
+                                    pb.setProgress((int)v);
+                                }
+
+                                @Override
+                                public void onCancelled() {
+                                    // On Cancelled
+                                }
+                            }, VideoQuality.MEDIUM, true, false);
+                        }
+                    }
                     for (LocalMedia media : selectList) {
                         Log.i(TAG, "是否压缩:" + media.isCompressed());
                         Log.i(TAG, "压缩:" + media.getCompressPath());
@@ -611,9 +702,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-            public void postJSON() throws IOException {
+            public void postJSON() throws IOException, URISyntaxException {
 
-                boolean isVideo = false;
+
                 LONG  = sharedPref.getString("LONG" , "NULL");
                 LAT   = sharedPref.getString("LAT","NULL");
                 RequestBody longitude =
@@ -625,54 +716,148 @@ public class MainActivity extends AppCompatActivity {
 
                 if(LONG=="NULL"){
                     Toast.makeText(getApplication(), "Please Enable Location, We need location for the feed", Toast.LENGTH_LONG).show();
-
                 }
                 else if(urls.size() == 0 && Title.equals("")){
                     Toast.makeText(getApplication(), "Empty Posts Not Allowed", Toast.LENGTH_LONG).show();
+                    share.setEnabled(true);
                 }
                 else{
-
+                    boolean isVideo;
                     List<MultipartBody.Part> parts = new ArrayList<>();
-
-//pass it like this
 
                     RequestBody title =
                             RequestBody.create(MediaType.parse("multipart/form-data"), Title);
 
-                    if (urls.size() != 0) {
-                        for (int index = 0; index < urls.size(); index++) {
+                    if(urls.size()!=0){
 
-                            System.out.println("The urls are :" + urls);
-                            String url = urls.get(index).getCutPath();
-                            if(url==null){
-                                url = urls.get(index).getPath();
-                            }
-                            File file = new File(url);
-                            isVideo = isVideoFile(url);
+                        String testurl = urls.get(0).getCutPath();
+                        if(testurl==null){
+                            testurl = urls.get(0).getPath();
+                        }
+                        isVideo = isVideoFile(testurl);
 
-                            if(!isVideo){
-                                //                RequestBody requestFile =
+                        if(!isVideo){
+                            for (int index = 0; index < urls.size(); index++) {
+
+                                System.out.println("The urls are :" + urls);
+                                String url = urls.get(index).getCutPath();
+                                if(url==null){
+                                    url = urls.get(index).getPath();
+                                }
+                                File file = new File(url);
+//                                isVideo = isVideoFile(url);
+
+//                                if(!isVideo){
+                                    //                RequestBody requestFile =
 //                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-                                RequestBody requestFile =
-                                        RequestBody.create(MediaType.parse("multipart/form-data"), new Compressor(this).compressToFile(file));
+                                    RequestBody requestFile =
+                                            RequestBody.create(MediaType.parse("multipart/form-data"), new Compressor(this).compressToFile(file));
 
 // MultipartBody.Part is used to send also the actual file name
-                                MultipartBody.Part body =
-                                        MultipartBody.Part.createFormData("media", file.getName(), requestFile);
+                                    MultipartBody.Part body =
+                                            MultipartBody.Part.createFormData("media", file.getName(), requestFile);
 
-                                parts.add(body);
+                                    parts.add(body);
                             }
+                            message.setVisibility(View.VISIBLE);
+                            message.setText("Uploading, Please Wait.");
+                            Call<ResponseBody> call = RetrofitClient
+                                    .getInstance()
+                                    .getApi()
+                                    .addPost(title, longitude, latitude, parts);
+                            call.enqueue(new Callback<ResponseBody>() {
 
+                                @Override
+                                public void onResponse(Call<ResponseBody> call,
+                                                       Response<ResponseBody> response) {
+                                    String m = response.message();
+                                    System.out.println(m);
+                                    if (response.code() == 200) {
+//                                post.urls.clear();
+//                                gallery.SelectedImgUrls.clear();
+//                                post.NoOfSlecteImg = 0;
+//                                views.clear();
+                                        Intent i = new Intent(MainActivity.this, Home.class);
+                                        startActivity(i);
+                                    }
+
+                                    Log.v("Upload", "success");
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(getApplication(), "Couldn't reach the server", Toast.LENGTH_LONG).show();
+                                    message.setVisibility(View.GONE);
+                                    share.setEnabled(true);
+                                    Log.e("Upload error:", t.getMessage());
+                                }
+                            });
+
+                        }
+                        else{
+                            System.out.println("The urls are :" + urls);
+
+//                            String url = urls.get(0).getCutPath();
+//                            if(url==null){
+//                                url = urls.get(0).getPath();
+//                            }
+                            File file;
+                            if(compressedvideo!=null) {
+                                file = new File(compressedvideo);
+                            }
+                            else{
+                                file = new File(videourl);
+                            }
+                            RequestBody requestFile =
+                                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+                            MultipartBody.Part body =
+                                    MultipartBody.Part.createFormData("video", file.getName(), requestFile);
+
+                            parts.add(body);
+
+                            message.setVisibility(View.VISIBLE);
+                            message.setText("Uploading, Please Wait.");
+                            Call<ResponseBody> call = RetrofitClient
+                                    .getInstance()
+                                    .getApi()
+                                    .addVideoPost(title, longitude, latitude, parts);
+                            call.enqueue(new Callback<ResponseBody>() {
+
+                                @Override
+                                public void onResponse(Call<ResponseBody> call,
+                                                       Response<ResponseBody> response) {
+                                    String m = response.message();
+                                    System.out.println(m);
+                                    if (response.code() == 200) {
+//                                post.urls.clear();
+//                                gallery.SelectedImgUrls.clear();
+//                                post.NoOfSlecteImg = 0;
+//                                views.clear();
+                                        Intent i = new Intent(MainActivity.this, Home.class);
+                                        startActivity(i);
+                                    }
+
+                                    Log.v("Upload", "success");
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(getApplication(), "Couldn't reach the server", Toast.LENGTH_LONG).show();
+                                    share.setEnabled(true);
+                                    message.setVisibility(View.GONE);
+                                    Log.e("Upload error:", t.getMessage());
+                                }
+                            });
 
                         }
                     }
 
-                    if(isVideo){
-                        Toast.makeText(getApplication(), "Video Not Allowed in Posts", Toast.LENGTH_LONG).show();
-                        share.setEnabled(true);
-                    }
                     else {
+
+                        message.setVisibility(View.VISIBLE);
+                        message.setText("Uploading, Please Wait.");
                         Call<ResponseBody> call = RetrofitClient
                                 .getInstance()
                                 .getApi()
@@ -699,13 +884,14 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 Toast.makeText(getApplication(), "Couldn't reach the server", Toast.LENGTH_LONG).show();
-
+                                share.setEnabled(true);
+                                message.setVisibility(View.GONE);
                                 Log.e("Upload error:", t.getMessage());
                             }
                         });
-
                     }
-                }
+                    }
+
             }
 
 
@@ -783,6 +969,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 Toast.makeText(getApplication(), "Couldn't reach the server", Toast.LENGTH_LONG).show();
+                                anonymousshare.setEnabled(true);
                                 Log.e("Upload error:", t.getMessage());
                             }
                         });
@@ -811,5 +998,78 @@ public class MainActivity extends AppCompatActivity {
                     return mimeType != null && mimeType.startsWith("video");
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+//    class VideoCompressAsyncTask extends AsyncTask<String, String, String> {
+//
+//        Context mContext;
+//
+//        public VideoCompressAsyncTask(Context context) {
+//            mContext = context;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            message.setVisibility(View.VISIBLE);
+//            pb.setVisibility(View.VISIBLE);
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... paths) {
+////            final String[] filePath = {null};
+////            getContext().getExternalFilesDir(null)+ "/Movies"
+//            String output = videourl+"compressed";
+//            VideoCompressor.INSTANCE.start(videourl, output, new CompressionListener() {
+//                @Override
+//                public void onStart() {
+//                    // Compression start
+//                }
+//
+//                @Override
+//                public void onSuccess() {
+//                    // On Compression success
+////                    filePath[0] = videourl;
+//                }
+//
+//                @Override
+//                public void onFailure(String failureMessage) {
+//                    System.out.println(failureMessage);
+//                    Toast.makeText(getApplication(), "Compression Failed.", Toast.LENGTH_LONG).show();
+//                    // On Failure
+//                }
+//
+//                @Override
+//                public void onProgress(float v) {
+//                    // Update UI with progress value
+//                    pb.setProgress((int)v);
+//                }
+//
+//                @Override
+//                public void onCancelled() {
+//                    // On Cancelled
+//                }
+//            }, VideoQuality.MEDIUM, false, false);
+//            return output;
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute(String compressedFilePath) {
+//            super.onPostExecute(compressedFilePath);
+//            compressedvideo = compressedFilePath;
+//            message.setVisibility(View.GONE);
+//            pb.setVisibility(View.GONE);
+//        }
+//    }
 
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class ModelFeed implements Parcelable {
     private String title;
     private List<String> media;
+    private String video;
     private int likes ;
     private int comments ;
     private String time ;
@@ -133,6 +134,13 @@ public class ModelFeed implements Parcelable {
         this.profile = profile;
     }
 
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
 //    public ModelFeed(String title, List<String> media, int likes, int comments, String time, String id, String postid, ModelProfile profile) {
 //        this.title = title;
 //        this.media = media;
