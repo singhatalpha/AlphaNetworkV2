@@ -192,11 +192,15 @@ public class user_login extends AppCompatActivity {
                         editor.apply();
                         String temp = sharedPref.getString("token" , "NULL");
 
-
-
-                        //redirect to home activity if successful
-                        Intent intent = new Intent(user_login.this, Home.class);
-                        startActivity(intent);
+                        String profession = toki.get("profession").toString();
+                        if(profession.equals("")){
+                            Intent intent = new Intent(user_login.this, Details.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(user_login.this, Home.class);
+                            startActivity(intent);
+                        }
 
                 }
                 else
@@ -274,9 +278,15 @@ public class user_login extends AppCompatActivity {
 //                        Toast.makeText(user_login.this, temp + " " + "sharedpref", Toast.LENGTH_LONG).show();
 
                         //redirect to home activity if successful
-                        Intent intent = new Intent(user_login.this, Home.class);
-                        startActivity(intent);
-
+                        String profession = toki.get("profession").toString();
+                        if(profession.equals("")){
+                            Intent intent = new Intent(user_login.this, Details.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(user_login.this, Home.class);
+                            startActivity(intent);
+                        }
                     }
                     else
                     {

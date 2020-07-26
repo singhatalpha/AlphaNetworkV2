@@ -100,39 +100,39 @@ public class ProfileActivity extends AppCompatActivity implements ProfileFragmen
         toolbar = (Toolbar) findViewById(R.id.profileToolBar);
         profileMenu = (ImageView) findViewById(R.id.profileMenu);
         back = findViewById(R.id.profileback);
-        sharedPref = getApplication().getSharedPreferences("once" , Context.MODE_PRIVATE);
-        String f = sharedPref.getString("once","NULL");
-
-        if (f.equals("NULL")) {
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("once" , "done");
-            editor.apply();
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplication());
-            builder1.setMessage("Profile contains your identity. Popularity is based on likes received or the position you hold in your locality." +
-                    "Pack can only have 12 members and for each member in the pack, all other members receive 10% of that member's popularity." +
-                    "These are updated weekly along with the ranking. Please tap yes to continue.");
-            builder1.setCancelable(true);
-
-            builder1.setPositiveButton(
-                    "Yes",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    });
-
-            builder1.setNegativeButton(
-                    "No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    });
-
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
-
-
-
-        }
+//        sharedPref = getApplication().getSharedPreferences("once" , Context.MODE_PRIVATE);
+//        String f = sharedPref.getString("once","NULL");
+//
+//        if (f.equals("NULL")) {
+//            SharedPreferences.Editor editor = sharedPref.edit();
+//            editor.putString("once" , "done");
+//            editor.apply();
+//            AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplication());
+//            builder1.setMessage("Profile contains your identity. Popularity is based on likes received or the position you hold in your locality." +
+//                    "Pack can only have 12 members and for each member in the pack, all other members receive 10% of that member's popularity." +
+//                    "These are updated weekly along with the ranking. Please tap yes to continue.");
+//            builder1.setCancelable(true);
+//
+//            builder1.setPositiveButton(
+//                    "Yes",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                        }
+//                    });
+//
+//            builder1.setNegativeButton(
+//                    "No",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                        }
+//                    });
+//
+//            AlertDialog alert11 = builder1.create();
+//            alert11.show();
+//
+//
+//
+//        }
 
         init();
 

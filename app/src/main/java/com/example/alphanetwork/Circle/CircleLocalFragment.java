@@ -57,9 +57,10 @@ public class CircleLocalFragment extends Fragment implements SwipeRefreshLayout.
     private List<ModelFeed> feed = new ArrayList<>();
     private CircleAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageView verified_filter, profession_filter, both_filter;
+    private RelativeLayout relativeLayout1;
 
-    public String LONG,LAT;
-    private SharedPreferences sharedPref;
+
 
     @Nullable
     @Override
@@ -78,14 +79,13 @@ public class CircleLocalFragment extends Fragment implements SwipeRefreshLayout.
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
+//        verified_filter = view.findViewById(R.id.verified_filter);
+//        profession_filter = view.findViewById(R.id.profession_filter);
+//        both_filter = view.findViewById(R.id.both_filter);
+        relativeLayout1 = view.findViewById(R.id.relLayout1);
+        relativeLayout1.setVisibility(View.GONE);
 
         LoadJson();
-
-
-
-
-
-
 
 
 

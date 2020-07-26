@@ -135,12 +135,6 @@ public class Home extends LocationBaseActivity implements MediaAdapter.OnFragmen
         setupViewPager();
 
 
-
-
-
-
-
-
     }
 
 
@@ -150,11 +144,11 @@ public class Home extends LocationBaseActivity implements MediaAdapter.OnFragmen
     @Override
     protected void onResume() {
         super.onResume();
-
         if (getLocationManager().isWaitingForLocation()
                 && !getLocationManager().isAnyDialogShowing()) {
             Log.d(TAG, "Resumed,getting location");
         }
+
     }
 
     @Override

@@ -57,6 +57,8 @@ public class ViewPostFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ViewPostAdapter adapter;
+    private ImageView verified_filter, profession_filter;
+
 
 
 
@@ -85,6 +87,11 @@ public class ViewPostFragment extends Fragment {
 
 //        smoothScroller.setTargetPosition(position);  // pos on which item you want to scroll recycler view
 //        recyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+
+        verified_filter = view.findViewById(R.id.verified_filter);
+        profession_filter = view.findViewById(R.id.profession_filter);
+        verified_filter.setVisibility(View.GONE);
+        profession_filter.setVisibility(View.GONE);
 
 
         init(feed,position);

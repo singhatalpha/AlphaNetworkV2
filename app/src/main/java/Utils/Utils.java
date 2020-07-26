@@ -1,11 +1,14 @@
 package Utils;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.util.IndianCalendar;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,5 +71,62 @@ public class Utils {
         String country = "US";
         return country.toLowerCase();
 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static File getVideoCacheDir(Context context) {
+        return new File(context.getExternalCacheDir(), "video-cache");
+    }
+
+    public static void cleanVideoCacheDir(Context context) throws IOException {
+        File videoCacheDir = getVideoCacheDir(context);
+        cleanDirectory(videoCacheDir);
+    }
+
+    private static void cleanDirectory(File file) throws IOException {
+        if (!file.exists()) {
+            return;
+        }
+        File[] contentFiles = file.listFiles();
+        if (contentFiles != null) {
+            for (File contentFile : contentFiles) {
+                delete(contentFile);
+            }
+        }
+    }
+
+    private static void delete(File file) throws IOException {
+        if (file.isFile() && file.exists()) {
+            deleteOrThrow(file);
+        } else {
+            cleanDirectory(file);
+            deleteOrThrow(file);
+        }
+    }
+
+    private static void deleteOrThrow(File file) throws IOException {
+        if (file.exists()) {
+            boolean isDeleted = file.delete();
+            if (!isDeleted) {
+                throw new IOException(String.format("File %s can't be deleted", file.getAbsolutePath()));
+            }
+        }
     }
 }

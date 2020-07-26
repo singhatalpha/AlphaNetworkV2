@@ -123,7 +123,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         options.add(getString(R.string.edit_profile_fragment)); //fragment 0
         options.add(getString(R.string.sign_out_fragment)); //fragement 1
 
-        ArrayAdapter adapter = new ArrayAdapter(mContext, simple_list_item_1, options);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, simple_list_item_1, options);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

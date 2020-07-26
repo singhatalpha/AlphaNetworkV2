@@ -24,6 +24,7 @@ public class MyApp extends Application {
         super.onCreate();
     }
 
+
     private HttpProxyCacheServer proxy;
 
     public static HttpProxyCacheServer getProxy(Context context) {
@@ -32,6 +33,10 @@ public class MyApp extends Application {
     }
 
     private HttpProxyCacheServer newProxy() {
-        return new HttpProxyCacheServer(this);
+        return new HttpProxyCacheServer.Builder(this)
+                .cacheDirectory(Utils.getVideoCacheDir(this))
+                .build();
     }
+
+
 }

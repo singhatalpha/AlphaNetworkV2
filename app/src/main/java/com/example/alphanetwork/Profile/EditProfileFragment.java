@@ -74,7 +74,7 @@ public class EditProfileFragment extends Fragment {
     private CircleImageView mProfilePhoto;
     public static String url = null;
     private ViewProfile vp;
-
+    public String profession;
 
 
     //vars
@@ -172,7 +172,7 @@ public class EditProfileFragment extends Fragment {
                     System.out.println(vp);
                     vp = response.body().getProfile();
                     mUsername.setText(vp.getUsername());
-
+                    profession = response.body().getProfile().getProfession();
 
 
 
@@ -207,7 +207,7 @@ public class EditProfileFragment extends Fragment {
     private void saveProfileSettings() throws IOException {
 
         final String user = mUsername.getText().toString();
-
+        final String prof = profession;
         boolean isVideo = isVideoFile(url);
 
         List<MultipartBody.Part> parts = null;
@@ -217,6 +217,8 @@ public class EditProfileFragment extends Fragment {
 
         RequestBody username =
                 RequestBody.create(MediaType.parse("multipart/form-data"), user);
+        RequestBody professionrb =
+                RequestBody.create(MediaType.parse("multipart/form-data"), prof);
 //        RequestBody phone =
 //                RequestBody.create(MediaType.parse("multipart/form-data"), phoneNumber);
 //        RequestBody email =
@@ -255,7 +257,7 @@ public class EditProfileFragment extends Fragment {
             Call<ResponseBody> call = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .updateProfile(parts, username);
+                    .updateProfile(parts, username, professionrb);
             call.enqueue(new Callback<ResponseBody>() {
 
                 @Override

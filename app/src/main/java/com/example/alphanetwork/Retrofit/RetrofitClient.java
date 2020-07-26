@@ -11,9 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.0.107:3000/api/";
+//    private static final String BASE_URL = "http://192.168.0.107:3000/api/";
 //    private static final String BASE_URL = "http://alphanetwork.herokuapp.com/api/";
-//    private static final String BASE_URL = "https://knowingisowning.com/api/";
+    private static final String BASE_URL = "https://knowingisowning.com/api/";
 
 
 

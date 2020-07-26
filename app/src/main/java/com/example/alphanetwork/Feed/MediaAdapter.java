@@ -2,7 +2,6 @@ package com.example.alphanetwork.Feed;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import androidx.fragment.app.Fragment;
 
@@ -18,26 +17,34 @@ import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 //import android.widget.VideoView;
+
+import com.danikula.videocache.CacheListener;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.devbrackets.android.exomedia.ExoMedia;
+import com.devbrackets.android.exomedia.core.source.MediaSourceProvider;
+import com.devbrackets.android.exomedia.core.source.builder.HlsMediaSourceBuilder;
+import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.devbrackets.android.exomedia.ExoMedia;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.example.alphanetwork.Home.Home;
 import com.example.alphanetwork.R;
-import Utils.MyApp;
+import com.danikula.videocache.CacheListener;
 
+
+import java.io.File;
 
 import Utils.Utils;
+import Utils.MyApp;
 
-public class MediaAdapter extends Fragment implements OnPreparedListener {
+public class MediaAdapter extends Fragment implements OnPreparedListener, CacheListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -54,6 +61,7 @@ public class MediaAdapter extends Fragment implements OnPreparedListener {
     public Context context;
     public static MediaController mediaController;
     public String typeof;
+
 //    public ProgressBar progressBar;
 
 
@@ -100,12 +108,17 @@ public class MediaAdapter extends Fragment implements OnPreparedListener {
             typeof = getArguments().getString("type");
         }
         context = getActivity();
+
+
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.activity_feed_media, container, false);
+
     }
 
     @Override
@@ -133,7 +146,6 @@ public class MediaAdapter extends Fragment implements OnPreparedListener {
 //        }
         if (link != null) {
             if (typeof.equals("video")) {
-
                 mVideo.setVisibility(View.VISIBLE);
 //                mediaController = new MediaController(getActivity());
 //                mediaController.setAnchorView(mVideo);
@@ -145,12 +157,18 @@ public class MediaAdapter extends Fragment implements OnPreparedListener {
 //                });
 //                mVideo.setVideoPath(link);
 //                mVideo.start();
+                HttpProxyCacheServer proxy = MyApp.getProxy(MyApp.getContext());
+                proxy.registerCacheListener(this, link);
+                String proxyUrl = proxy.getProxyUrl(link);
+
+
+                mVideo.setScaleType(ScaleType.CENTER_CROP);
+                mVideo.setMeasureBasedOnAspectRatioEnabled(false);
+
 
                 mVideo.setOnPreparedListener(this);
-                HttpProxyCacheServer proxy = getProxy();
-                String proxyUrl = proxy.getProxyUrl(link);
                 mVideo.setVideoURI(Uri.parse(proxyUrl));
-                mImage.setVisibility(View.GONE);
+
 
             } else {
 
@@ -275,6 +293,11 @@ public class MediaAdapter extends Fragment implements OnPreparedListener {
         mListener = null;
     }
 
+    @Override
+    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
+        bar.setSecondaryProgress(percentsAvailable);
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -287,8 +310,8 @@ public class MediaAdapter extends Fragment implements OnPreparedListener {
         bar.setVisibility(View.GONE);
     }
 
-    private HttpProxyCacheServer getProxy() {
-        return MyApp.getProxy(context);
-    }
+
+
 
 }
+

@@ -71,7 +71,7 @@
         <activity android:name=".Profile.FollowersActivity" />
 <!--        <activity android:name=".addpost.post" />-->
 <!--        <activity android:name=".addpost.gallery" />-->
-
+        <activity android:name=".Login.Details"/>
 
         <activity android:name=".addmedia.pictureselector.MainActivity" />
     </application>

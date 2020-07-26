@@ -12,6 +12,7 @@ public class ViewProfile
 //    @Expose
     private String photo;
     private String username;
+    private String profession;
     private int influence;
     private int popularity;
     private String position;
@@ -98,8 +99,13 @@ public class ViewProfile
     }
 
 
+    public String getProfession() {
+        return profession;
+    }
 
-
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
     public String getUsername ()
     {

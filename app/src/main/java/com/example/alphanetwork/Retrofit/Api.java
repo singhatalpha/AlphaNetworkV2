@@ -103,7 +103,8 @@ public interface Api {
     @PATCH("user")
     Call<ResponseBody> updateProfile(
         @Part List<MultipartBody.Part> photo,
-        @Part ("username") RequestBody username
+        @Part ("username") RequestBody username,
+        @Part ("profession") RequestBody profession
     );
 
 
@@ -129,6 +130,24 @@ public interface Api {
 
     @GET("articles/feed")
     Call<ModelHomeWall> feed(
+            @Query("longitude") String longitude,
+            @Query("latitude") String latitude
+    );
+
+    @GET("articles/professionfeed")
+    Call<ModelHomeWall> professionfeed(
+            @Query("longitude") String longitude,
+            @Query("latitude") String latitude
+    );
+
+    @GET("articles/verifiedfeed")
+    Call<ModelHomeWall> verifiedfeed(
+            @Query("longitude") String longitude,
+            @Query("latitude") String latitude
+    );
+
+    @GET("articles/bothfeed")
+    Call<ModelHomeWall> bothfeed(
             @Query("longitude") String longitude,
             @Query("latitude") String latitude
     );
