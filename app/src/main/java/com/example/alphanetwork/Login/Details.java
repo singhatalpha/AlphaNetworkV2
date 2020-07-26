@@ -56,7 +56,8 @@ public class Details extends AppCompatActivity implements AdapterView.OnItemSele
     private ViewProfile vp;
     public String profession = null;
     private Button proceed;
-    private static final String[] paths = {"NONE", "Athlete","Doctor","Farmer", "Gamer", "Police", "Politician", "Student", "Teacher"};
+    private static final String[] paths = {"NONE", "Accountant", "Actor", "Athlete", "Businessman", "Doctor", "Engineer", "Lawyer", "Farmer", "Gamer", "Police", "Politician",
+            "Student", "Teacher"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

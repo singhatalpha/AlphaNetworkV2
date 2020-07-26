@@ -161,13 +161,16 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
+
         String f = sharedPref.getString("feed","NULL");
+        if (!f.equals("NULL")) {
         Gson gson = new Gson();
         feed = gson.fromJson(f, ModelHomeWall.class).getPosts();
         adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
+        }
 
     }
     @Override

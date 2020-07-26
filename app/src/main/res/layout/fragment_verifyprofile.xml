@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/gradientbackground"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/loginscrn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Profile Verification"
+        android:textColor="@color/lightGrey"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+
+    <TextView android:id="@+id/lnkLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="The app is in its initial development stage, so
+to confirm your profile, please contact the developer at 8427249134 or mail
+your identity proof at singhatalpha@gmail.com"
+        android:gravity="center"
+
+        android:textSize="20dp"
+        android:textColor="#DF9A10"
+        android:onClick="test"
+        />
+
+
+</LinearLayout>
