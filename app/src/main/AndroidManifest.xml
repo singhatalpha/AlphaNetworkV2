@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.alphanetwork">
+    package="com.alpha.alphanetwork">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -44,7 +43,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Login.Splash"
+            android:name="com.alpha.alphanetwork.Login.Splash"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,28 +51,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Search.Search" />
-        <activity android:name=".Circle.Circle" />
-        <activity android:name=".Notification.Notification" />
-        <activity android:name=".Dark.Dark" />
-        <activity android:name=".Home.Home" />
-        <activity android:name=".Home.RankingActivity" />
-        <activity android:name=".Profile.PackActivity" />
-        <activity android:name=".Profile.CreatePackActivity" />
-        <activity android:name=".Profile.PartyActivity" />
-        <activity android:name=".Profile.CreatePartyActivity" />
-        <activity android:name=".Login.user_login" />
-        <activity android:name=".Login.Registration" />
-        <activity android:name=".Profile.ProfileActivity" />
-        <activity android:name=".Profile.AccountSettingsActivity" />
+        <activity android:name="com.alpha.alphanetwork.Search.Search" />
+        <activity android:name="com.alpha.alphanetwork.Circle.Circle" />
+        <activity android:name="com.alpha.alphanetwork.Notification.Notification" />
+        <activity android:name="com.alpha.alphanetwork.Dark.Dark" />
+        <activity android:name="com.alpha.alphanetwork.Home.Home" />
+        <activity android:name="com.alpha.alphanetwork.Home.RankingActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.PackActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.CreatePackActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.PartyActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.CreatePartyActivity" />
+        <activity android:name="com.alpha.alphanetwork.Login.user_login" />
+        <activity android:name="com.alpha.alphanetwork.Login.Registration" />
+        <activity android:name="com.alpha.alphanetwork.Profile.ProfileActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.AccountSettingsActivity" />
 
-        <activity android:name=".Profile.FollowingActivity" />
-        <activity android:name=".Profile.FollowersActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.FollowingActivity" />
+        <activity android:name="com.alpha.alphanetwork.Profile.FollowersActivity" />
 <!--        <activity android:name=".addpost.post" />-->
 <!--        <activity android:name=".addpost.gallery" />-->
-        <activity android:name=".Login.Details"/>
+        <activity android:name="com.alpha.alphanetwork.Login.Details"/>
 
-        <activity android:name=".addmedia.pictureselector.MainActivity" />
+        <activity android:name="com.alpha.alphanetwork.addmedia.pictureselector.MainActivity" />
     </application>
 
 </manifest>

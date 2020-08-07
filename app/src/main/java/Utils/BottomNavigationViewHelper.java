@@ -9,12 +9,11 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 
-import com.example.alphanetwork.Home.Home;
-import com.example.alphanetwork.Search.Search;
-import com.example.alphanetwork.Circle.Circle;
-import com.example.alphanetwork.R;
-import com.example.alphanetwork.Notification.Notification;
-import com.example.alphanetwork.Dark.Dark;
+import com.alpha.alphanetwork.Home.Home;
+import com.alpha.alphanetwork.Search.Search;
+import com.alpha.alphanetwork.Circle.Circle;
+import com.alpha.alphanetwork.R;
+import com.alpha.alphanetwork.Notification.Notification;
 
 public class BottomNavigationViewHelper {
 
