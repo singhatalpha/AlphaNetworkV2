@@ -168,7 +168,7 @@ public class Circle extends AppCompatActivity implements MediaAdapter.OnFragment
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.getTabAt(0).setText("TopLocal");
-        tabLayout.getTabAt(1).setText("TopAnony");
+        tabLayout.getTabAt(1).setText("TopSecret");
 //        tabLayout.getTabAt(2).setIcon(R.drawable.ic_live);
     }
 

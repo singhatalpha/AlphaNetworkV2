@@ -116,6 +116,30 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 >
 
             </androidx.viewpager.widget.ViewPager>
+            <com.devbrackets.android.exomedia.ui.widget.VideoView
+                android:id="@+id/videoplayervp"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:visibility="gone"
+                app:useDefaultControls="true"/>
+            <ImageView
+                android:id="@+id/startvideo"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerInParent="true"
+                android:tint="@color/white"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_play" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tap To Play"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp"-->
+<!--                android:id="@+id/tv_play"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:visibility="gone"-->
+<!--                />-->
 
     </RelativeLayout>
 

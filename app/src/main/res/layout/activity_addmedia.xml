@@ -46,7 +46,7 @@
             android:layout_alignParentEnd="true"
             android:textSize="12sp"
             android:background="@drawable/buttonstyle"
-            android:text="Post Anonymously"
+            android:text="Post Secretly"
             android:layout_height="wrap_content" />
 
 <!--        <TextView-->

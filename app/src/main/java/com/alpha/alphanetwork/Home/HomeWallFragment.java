@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +47,14 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private List<ModelFeed> feed = new ArrayList<>();
-    private Adapter adapter;
+//    private List<ModelFeed> limitedfeed = new ArrayList<>();
+    private Adapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     public String LONG,LAT;
     private SharedPreferences sharedPref;
     private ImageView verified_filter, profession_filter,both_filter;
+
+
 
     @Nullable
     @Override
@@ -109,9 +114,15 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
 
             Gson gson = new Gson();
             feed = gson.fromJson(f, ModelHomeWall.class).getPosts();
-            adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+//            int i = 0;
+//            while(i<5){
+//                limitedfeed.add(feed.get(i));
+//                i++;
+//            }
+
+            mAdapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager(),recyclerView);
+            recyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
             swipeRefreshLayout.setRefreshing(false);
             LoadJson();
 
@@ -156,9 +167,15 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
         if (!f.equals("NULL")) {
         Gson gson = new Gson();
         feed = gson.fromJson(f, ModelHomeWall.class).getPosts();
-        adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+//        int i = 0;
+//        while(i<5){
+//            limitedfeed.add(feed.get(i));
+//            i++;
+//        }
+
+        mAdapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager(),recyclerView);
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
         }
 
@@ -209,10 +226,15 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
                         feed = response.body().getPosts();
-                        System.out.println(feed);
-                        adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
-                        recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+//                        int i = 0;
+//                        while(i<5){
+//                            limitedfeed.add(feed.get(i));
+//                            i++;
+//                        }
+
+                        mAdapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager(),recyclerView);
+                        recyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
 
                         swipeRefreshLayout.setRefreshing(false);
 
@@ -256,11 +278,15 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
                     if (response.isSuccessful() && response.body().getStatus() != null) {
 
                         feed = response.body().getPosts();
-                        System.out.println(feed);
-                        adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
-                        recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+//                        int i = 0;
+//                        while(i<5){
+//                            limitedfeed.add(feed.get(i));
+//                            i++;
+//                        }
 
+                        mAdapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager(),recyclerView);
+                        recyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
 
                     } else {
@@ -304,10 +330,14 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
                         feed = response.body().getPosts();
-                        System.out.println(feed);
-                        adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
-                        recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+//                        int i = 0;
+//                        while(i<5){
+//                            limitedfeed.add(feed.get(i));
+//                            i++;
+//                        }
+                        mAdapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager(),recyclerView);
+                        recyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
 
                         swipeRefreshLayout.setRefreshing(false);
 
@@ -351,10 +381,15 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
                         feed = response.body().getPosts();
-                        System.out.println(feed);
-                        adapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager());
-                        recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+//                        int i = 0;
+//                        while(i<5){
+//                            limitedfeed.add(feed.get(i));
+//                            i++;
+//                        }
+
+                        mAdapter = new Adapter(feed, getActivity(), getActivity().getSupportFragmentManager(),recyclerView);
+                        recyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
 
                         swipeRefreshLayout.setRefreshing(false);
 
@@ -376,6 +411,10 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
         }
 
     }
+
+
+
+
 
 
 //    @Override
@@ -410,6 +449,8 @@ public class HomeWallFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 
 
 }

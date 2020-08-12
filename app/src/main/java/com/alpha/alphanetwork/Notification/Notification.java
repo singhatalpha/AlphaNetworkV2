@@ -30,8 +30,8 @@ import retrofit2.Response;
 
 
 public class Notification extends AppCompatActivity{
-    private static final String TAG = "SearchActivity";
-    private static final int ACTIVITY_NUM = 1;
+    private static final String TAG = "NotificationActivity";
+    private static final int ACTIVITY_NUM = 3;
 
     private Context mContext = Notification.this;
 

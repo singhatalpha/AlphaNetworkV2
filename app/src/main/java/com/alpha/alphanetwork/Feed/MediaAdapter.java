@@ -16,11 +16,13 @@ import android.view.ViewGroup;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-//import android.widget.VideoView;
 
-import com.danikula.videocache.CacheListener;
-import com.danikula.videocache.HttpProxyCacheServer;
+
+
+import com.devbrackets.android.exomedia.ExoMedia;
+import com.devbrackets.android.exomedia.core.source.MediaSourceProvider;
 import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
+import com.devbrackets.android.exomedia.listener.OnCompletionListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -32,14 +34,25 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.alpha.alphanetwork.R;
-
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 
 import java.io.File;
 
 import Utils.Utils;
 import Utils.MyApp;
 
-public class MediaAdapter extends Fragment implements OnPreparedListener, CacheListener {
+
+public class MediaAdapter extends Fragment{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -51,7 +64,7 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
     public String link;
 
     public Uri uri;
-    public ProgressBar bar;
+    public ProgressBar bar,seekbar;
     private OnFragmentInteractionListener mListener;
     public Context context;
     public static MediaController mediaController;
@@ -122,52 +135,30 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
         System.out.println("thiis reached onview created");
         mImage = view.findViewById(R.id.imageplayer);
 //        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        mVideo = view.findViewById(R.id.videoplayer);
+//        mVideo = view.findViewById(R.id.videoplayer);
 //        mTest = view.findViewById(R.id.test);
         bar = view.findViewById(R.id.progress);
+//        seekbar = view.findViewById(R.id.progressBar);
         init();
     }
 
     private void init() {
-//        if(link != null){
-//            mImage.setVisibility(View.VISIBLE);
-//            RequestOptions requestOptions = new RequestOptions()
-//                    .placeholder(R.drawable.ic_launcher_background);
-//
-//            Glide.with(getActivity())
-//                    .setDefaultRequestOptions(requestOptions)
-//                    .load(link)
-//                    .into(mImage);
-//        }
+
         if (link != null) {
             if (typeof.equals("video")) {
-                mVideo.setVisibility(View.VISIBLE);
-//                mediaController = new MediaController(getActivity());
-//                mediaController.setAnchorView(mVideo);
-//                mVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                    @Override
-//                    public void onPrepared(MediaPlayer mediaPlayer) {
-//                        bar.setVisibility(getView().GONE);
-//                    }
-//                });
-//                mVideo.setVideoPath(link);
-//                mVideo.start();
-                HttpProxyCacheServer proxy = MyApp.getProxy(MyApp.getContext());
-                proxy.registerCacheListener(this, link);
-                String proxyUrl = proxy.getProxyUrl(link);
-
-
-                mVideo.setScaleType(ScaleType.CENTER_CROP);
-                mVideo.setMeasureBasedOnAspectRatioEnabled(false);
-
-
-                mVideo.setOnPreparedListener(this);
-                mVideo.setVideoURI(Uri.parse(proxyUrl));
-
+//                mVideo.setVisibility(View.VISIBLE);
+//
+//                mVideo.setScaleType(ScaleType.CENTER_CROP);
+//                mVideo.setMeasureBasedOnAspectRatioEnabled(false);
+//
+//
+//
+//                mVideo.setOnPreparedListener(this);
+//                mVideo.setVideoURI(Uri.parse(link));
 
             } else {
 
-                mVideo.setVisibility(View.GONE);
+//                mVideo.setVisibility(View.GONE);
                 mImage.setVisibility(View.VISIBLE);
                 RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.ic_launcher_background);
@@ -183,7 +174,7 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
 //                        .dontAnimate()
 //                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
 //                        .into(mImage);
-                System.out.println("Entered if with link: " + link);
+//                System.out.println("Entered if with link: " + link);
                 mImage.setVisibility(View.VISIBLE);
 
                 Glide.with(this)
@@ -200,7 +191,7 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
 
                             @Override
                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                System.out.println("Glide worked...damn");
+//                                System.out.println("Glide worked...damn");
                                 bar.setVisibility(View.GONE);
 
                                 return false;
@@ -210,7 +201,7 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
                         .dontAnimate()
                         .into(mImage);
 
-                System.out.println("Crossed Glide");
+//                System.out.println("Crossed Glide");
 
 //                File cacheDir = StorageUtils.getCacheDirectory(context);
 //                ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
@@ -274,6 +265,7 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -285,28 +277,53 @@ public class MediaAdapter extends Fragment implements OnPreparedListener, CacheL
     @Override
     public void onDetach() {
         super.onDetach();
+//        if (typeof.equals("video")) {
+//            mVideo.stopPlayback();
+//        }
         mListener = null;
     }
 
-    @Override
-    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
-        bar.setSecondaryProgress(percentsAvailable);
-    }
+//    @Override
+//    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
+//        seekbar.setSecondaryProgress(percentsAvailable);
+//        seekbar.setVisibility(View.GONE);
+//
+//    }
+
+//    @Override
+//    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
+//        bar.setSecondaryProgress(percentsAvailable);
+//    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-    @Override
-    public void onPrepared() {
-        //Starts the video playback as soon as it is ready
-        mVideo.start();
-        bar.setVisibility(View.GONE);
-    }
+//    @Override
+//    public void onPrepared() {
+//        //Starts the video playback as soon as it is ready
+//        bar.setVisibility(View.GONE);
+//    }
+//
+//    @Override
+//    public void onCompletion() {
+//        mVideo.seekTo(0);
+//    }
 
-
+//    public void onScroll(String url) {
+//        mVideo.setVisibility(View.VISIBLE);
+//
+//        mVideo.setScaleType(ScaleType.CENTER_CROP);
+//        mVideo.setMeasureBasedOnAspectRatioEnabled(false);
+//        HttpProxyCacheServer proxy = MyApp.getProxy(getActivity());
+//        String proxyUrl = proxy.getProxyUrl(url);
+//        mVideo.setOnPreparedListener(this);
+////                mVideo.setVideoURI(Uri.parse(link));
+//        mVideo.setVideoURI(Uri.parse(proxyUrl));
+//    }
 
 
 }
+
 

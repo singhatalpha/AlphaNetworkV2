@@ -5,6 +5,12 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
+import com.devbrackets.android.exomedia.listener.OnCompletionListener;
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.devbrackets.android.exomedia.ui.widget.VideoControls;
+import com.devbrackets.android.exomedia.ui.widget.VideoControlsCore;
+import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,9 +18,12 @@ import androidx.fragment.app.FragmentManager;
 //import android.support.v4.view.PagerAdapter;
 
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -38,27 +47,28 @@ import com.alpha.alphanetwork.Profile.ProfileActivity;
 import com.alpha.alphanetwork.R;
 import Utils.Utils;
 import Utils.LikesToggle;
+import Utils.MyApp;
 
 
-
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
+public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>   {
 
     private List<ModelFeed> posts;
     private Context context;
     private FragmentManager fragmentManager;
     private static final String TAG = "Adapter";
+    private  RecyclerView mRecycler;
 
 
 
-
-
-
-    public Adapter(List<ModelFeed> posts, Context context,FragmentManager fragmentManager) {
+    public Adapter( List<ModelFeed> posts, Context context,FragmentManager fragmentManager, RecyclerView recyclerView) {
         this.posts = posts;
         this.context = context;
         this.fragmentManager = fragmentManager;
+        mRecycler = recyclerView;
 
     }
+
+
 
     @NonNull
     @Override
@@ -72,7 +82,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holders, int position) {
         final MyViewHolder holder = holders;
         final ModelFeed modelFeed = posts.get(position);
-
+        System.out.println("ADAPTER"+posts.size());
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(Utils.getRandomDrawbleColor());
         requestOptions.error(Utils.getRandomDrawbleColor());
@@ -80,143 +90,48 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         requestOptions.centerCrop();
 
 
-//        if(modelFeed.getMedia().size()!=0) {
-//            holder.imgView_postPic.setVisibility(View.VISIBLE);
-//            System.out.println(modelFeed.getMedia().get(0).getFile_data() );
-//
-//            Glide.with(context)
-//                    .load(modelFeed.getMedia().get(0).getFile_data())
-//                    .apply(requestOptions)
-//                    .listener(new RequestListener<Drawable>() {
-//                        @Override
-//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//
-//                            System.out.println(e);
-//                            holder.progressBar.setVisibility(View.GONE);
-//                            return false;
-//                        }
-//
-//                        @Override
-//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//
-////                            holder.progressBar.setVisibility(View.GONE);
-//                            return false;
-//                        }
-//                    })
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .dontAnimate()
-//                    .into(holder.imgView_postPic);
-//
-////            Glide.with(context).load(modelFeed.getMedia().get(0).getFile_data()).dontAnimate().into(holder.imgView_postPic);
-//        }
-//        else{
-////            holder.imgView_postPic.setVisibility(View.GONE);
-//        }
-
-
-//        MediaAdapter ma = new MediaAdapter();
-//        holder.vp.setAdapter(ma);
-
-//        final ArrayList<Fragment> fragments = new ArrayList<>();
-//        List<String> medias = modelFeed.getMedia();
-//
-//        for(String media : medias){
-//            MediaAdapter fragment = MediaAdapter.getInstance(media);
-//            fragments.add(fragment);
-//        }
-//
-//        MyPagerAdapter pagerAdapter = new MyPagerAdapter(fragmentManager, fragments);
-//        holder.vp.setAdapter(pagerAdapter);
-//
-//
-//
-//
-//         ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-//
-//            @Override
-//            public void onPageSelected(int position) {
-////                System.out.println(viewPager);
-////                System.out.println("view pager");
-////
-//                MediaAdapter one = (MediaAdapter) fragments.get(holder.vp.getCurrentItem());
-//                System.out.println("fragement : " + one);
-//                if(one.link.endsWith(".mp4")){
-//                    one.bar.setVisibility(View.VISIBLE);
-//                    one.mVideo.setMediaController(one.mediacontroller);
-////                System.out.println(one.uri);
-//                    one.mVideo.setVideoURI(Uri.parse(one.link));
-//                    one.mVideo.requestFocus();
-//                    one.mVideo.start();}
-//                else
-//                {
-//
-////                    ((MediaAdapter)fragments.get(holder.vp.getCurrentItem()-1)).mVideo.stopPlayback();
-//                    Glide.with(context).load(one.link).into(one.mImage);
-//                }
-//
-//            }
-//
-//
-//        };
-//        holder.vp.addOnPageChangeListener(pageChangeListener);
 
 
 
+        String t = posts.get(position).getVideo();
 
-        final PagerAdapter receive = addData(position);
-        if(receive == null)
-        {
-//             View namebar = View.findViewById(R.id.namebar);
+        if(!t.equals("")){
             ((ViewGroup) holder.vp.getParent()).removeView(holder.vp);
-        }
-        else
-        {
+            holder.mVideo.setVisibility(View.VISIBLE);
+            VideoControls controls = holder.mVideo.getVideoControls();
+            controls.hide();
+            holder.play.setVisibility(View.VISIBLE);
+            holder.mVideo.setScaleType(ScaleType.CENTER_CROP);
+            holder.mVideo.setMeasureBasedOnAspectRatioEnabled(false);
 
-
-            holder.vp.setId(position+1);
-            holder.vp.setAdapter(receive);
-
-
-
-
-
-//        viewPager.setAdapter(adapter);
-//        viewPager.setCurrentItem(0);
-//        ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-//
-//            @Override
-//            public void onPageSelected(int position) {
-////                System.out.println(viewPager);
-////                System.out.println("view pager");
-//                MediaAdapter one = new MediaAdapter(context);
-//                one = (MediaAdapter) receive.mediaFragments.get(holder.vp.getCurrentItem());
-////                System.out.println("fragement : " + one);
-//                if(one.link.endsWith(".mp4")){
-//                    one.bar.setVisibility(View.VISIBLE);
-//                    one.mVideo.setMediaController(MediaAdapter.mediaController);
-////                System.out.println(one.uri);
-////                    one.mVideo.setVideoURI(Uri.parse(one.link));
-//                    one.mVideo.setVideoURI(Uri.parse(one.link));
-//                    one.mVideo.requestFocus();
-//                    one.mVideo.start();}
-////                else
-////                {
-////                    ((MediaAdapter)receive.mediaFragments.get(holder.vp.getCurrentItem()-1)).mVideo.stopPlayback();
-////                    Glide.with(MainActivity.this).load(one.url).into(one.iv);
-////                }
-//
-//            }
-//        };
-//
-//        holder.vp.addOnPageChangeListener(pageChangeListener);
-
-
-
+//            holder.mVideo.setOnPreparedListener(this);
         }
 
+        else {
 
 
+            final PagerAdapter receive = addData(position);
+            if (receive == null) {
+//             View namebar = View.findViewById(R.id.namebar);
+                ((ViewGroup) holder.vp.getParent()).removeView(holder.vp);
+            } else {
 
+
+                holder.vp.setId(position + 1);
+                holder.vp.setAdapter(receive);
+
+            }
+        }
+        holder.play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            VideoControls controls = holder.mVideo.getVideoControls();
+            controls.show();
+            holder.mVideo.setVideoURI(Uri.parse(t));
+            holder.mVideo.start();
+            holder.play.setVisibility(View.GONE);
+            }
+        });
 
 
         holder.imgView_proPic.setOnClickListener(new View.OnClickListener() {
@@ -243,17 +158,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
         holder.tl.setupWithViewPager(holder.vp, true);
 
 
@@ -269,12 +173,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
                 .into(holder.imgView_proPic);
 
 
-//        if (modelFeed.getProfile().getPhoto() == null) {
-//            holder.imgView_postPic.setVisibility(View.GONE);
-//        } else {
-//            holder.imgView_postPic.setVisibility(View.VISIBLE);
-//            Glide.with(context).load(modelFeed.getProfile().getPhoto()).into(holder.imgView_postPic);
-//        }
 
     }
 
@@ -295,9 +193,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
     public PagerAdapter addData(int i)
     {
-//        System.out.println(i);
-//        System.out.println(posts.size());
-
 
         ModelFeed modelFeed = posts.get(i);
         List<String> urls = modelFeed.getMedia();
@@ -311,18 +206,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
             urls.clear();
             urls.add(modelFeed.getVideo());
             type = "video";
+            return null;
         }
-
-
-
 
         if(urls.size() == 0)
         {
             return null;
         }
-
-
-
 
         PagerAdapter pagerAdapter = new PagerAdapter(fragmentManager);
 //        ArrayList<String> urls = modelFeed.getMedia().get(i);
@@ -363,10 +253,95 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
 
 
+//    public VideoPagerAdapter addVideo(int i)
+//    {
+//
+
+//        List<String> urls = modelFeed.getMedia();
+//        urls.clear();
+//
+//        String video = modelFeed.getVideo();
+//        urls.add(video);
+//        String type = "video";
+//
+//
+//        if(urls.size() == 0)
+//        {
+//            return null;
+//        }
+//
+//        VideoPagerAdapter videopagerAdapter = new VideoPagerAdapter(fragmentManager);
+////        ArrayList<String> urls = modelFeed.getMedia().get(i);
+//        VideoAdapter one;
+//
+//        for(int j = 0; j < urls.size(); j++)
+//        {
+////            System.out.println(urls.get(j));
+//            one = VideoAdapter.newInstance(urls.get(j),context,type);
+//            videopagerAdapter.mediaFragments.add(one);
+//
+//        }
+////        viewPager.setAdapter(pagerAdapter);
+//        return  videopagerAdapter;
+//    }
+//
+//
+//    public class VideoPagerAdapter extends FragmentStatePagerAdapter
+//    {
+//        //        public ArrayList<MediaFragment> arrayList =
+//        public ArrayList<VideoAdapter> mediaFragments = new ArrayList<>();
+//        public VideoPagerAdapter(FragmentManager manager)
+//        {
+//            super(manager);
+//        }
+//
+//
+//        @Override
+//        public Fragment getItem(int i) {
+//            return mediaFragments.get(i);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mediaFragments.size();
+//        }
+//    }
 
 
 
-// implements  View.OnClickListener
+//    @Override
+//    public void onViewAttachedToWindow(@NonNull MyViewHolder holder) {
+//        super.onViewAttachedToWindow(holder);
+//
+//        int position = holder.getAdapterPosition();
+//        String t = posts.get(position).getVideo();
+//        System.out.println("ATTACHED"+position);
+//        if(!t.equals("")){
+////            ((ViewGroup) holder.vp.getParent()).removeView(holder.vp);
+//            holder.mVideo.setVisibility(View.VISIBLE);
+//
+//            holder.mVideo.setScaleType(ScaleType.CENTER_CROP);
+//            holder.mVideo.setMeasureBasedOnAspectRatioEnabled(false);
+//
+////            holder.mVideo.setOnPreparedListener(this);
+//            holder.mVideo.setVideoURI(Uri.parse(t));
+//            holder.mVideo.start();
+//
+//        }
+//    }
+//
+//    @Override
+//    public void onViewDetachedFromWindow(@NonNull MyViewHolder holder) {
+//        super.onViewDetachedFromWindow(holder);
+//        int position = holder.getAdapterPosition();
+//        System.out.println("DETTACHED"+position);
+//        String t = posts.get(position).getVideo();
+//        if(!t.equals("")){
+//            holder.mVideo.stopPlayback();
+//        }
+//    }
+
+    // implements  View.OnClickListener
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -375,7 +350,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         ProgressBar progressBar;
         ViewPager vp;
         TabLayout tl;
-        ImageView imgView_like, imgView_liked, imgView_dislike, imgView_disliked;
+        ImageView imgView_like, imgView_liked, imgView_dislike, imgView_disliked, play;
+        public VideoView mVideo;
         private GestureDetector lGestureDetector;
         private GestureDetector dGestureDetector;
         private LikesToggle like;
@@ -423,6 +399,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
             imgView_dislike.setVisibility(View.VISIBLE);
 
 
+
+            mVideo = itemView.findViewById(R.id.videoplayervp);
+            play = itemView.findViewById(R.id.startvideo);
 
 
 
@@ -589,6 +568,53 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
 
     }
+
+//    public void loadmore(){
+//
+////        limitfeed.add(null);
+////        adapter = new Adapter(limitfeed, getActivity(), getActivity().getSupportFragmentManager());
+////        adapter.notifyItemInserted(limitfeed.size() - 1);
+//        Log.d(TAG, "ENTERED LOAD MORE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                limitfeed.remove(limitfeed.size() - 1);
+//                int scrollPosition = limitfeed.size();
+//                adapter.notifyItemRemoved(scrollPosition);
+//                int currentSize = scrollPosition;
+//                if(currentSize<feed.size()) {
+//                    int nextLimit = currentSize + 5;
+//                    if (nextLimit > feed.size()) {
+//                        nextLimit = feed.size();
+//                    }
+//                    System.out.println(limitfeed);
+//                    System.out.println(currentSize);
+//                    while (currentSize - 1 < nextLimit) {
+//                        limitfeed.add(feed.get(currentSize));
+//                        currentSize++;
+//                    }
+//                    System.out.println(limitfeed);
+//
+//                    adapter.notifyDataSetChanged();
+//                }
+//
+//            }
+//        }, 3000);
+//
+//
+//    }
+
+
+//    @Override
+//    public void onPrepared() {
+//        //Starts the video playback as soon as it is ready
+//    }
+
+//    @Override
+//    public void onCompletion() {
+//        mVideo.seekTo(0);
+//    }
 
 
 }

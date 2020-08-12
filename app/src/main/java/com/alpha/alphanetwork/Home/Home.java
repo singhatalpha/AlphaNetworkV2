@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 //import com.example.alphanetwork.Dark.DarkMediaAdapter;
+
 import com.alpha.alphanetwork.addmedia.pictureselector.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -50,7 +51,7 @@ import android.location.Location;
 import android.widget.TextView;
 
 
-public class Home extends LocationBaseActivity implements MediaAdapter.OnFragmentInteractionListener {
+public class Home extends LocationBaseActivity implements MediaAdapter.OnFragmentInteractionListener{
     private static final String TAG = "Home";
     private static final int ACTIVITY_NUM = 0;
 
@@ -320,7 +321,7 @@ public class Home extends LocationBaseActivity implements MediaAdapter.OnFragmen
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.getTabAt(0).setText("Local");
-        tabLayout.getTabAt(1).setText("Anonymous");
+        tabLayout.getTabAt(1).setText("Secret");
 //        tabLayout.getTabAt(2).setIcon(R.drawable.ic_live);
     }
 

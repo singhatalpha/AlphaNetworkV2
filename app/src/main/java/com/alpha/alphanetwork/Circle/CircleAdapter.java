@@ -7,6 +7,9 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 
 import com.alpha.alphanetwork.Feed.MediaAdapter;
+import com.devbrackets.android.exomedia.core.video.scale.ScaleType;
+import com.devbrackets.android.exomedia.ui.widget.VideoControls;
+import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -17,6 +20,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -81,139 +85,63 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.MyViewHold
         requestOptions.centerCrop();
 
 
-//        if(modelFeed.getMedia().size()!=0) {
-//            holder.imgView_postPic.setVisibility(View.VISIBLE);
-//            System.out.println(modelFeed.getMedia().get(0).getFile_data() );
-//
-//            Glide.with(context)
-//                    .load(modelFeed.getMedia().get(0).getFile_data())
-//                    .apply(requestOptions)
-//                    .listener(new RequestListener<Drawable>() {
-//                        @Override
-//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//
-//                            System.out.println(e);
-//                            holder.progressBar.setVisibility(View.GONE);
-//                            return false;
-//                        }
-//
-//                        @Override
-//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//
-////                            holder.progressBar.setVisibility(View.GONE);
-//                            return false;
-//                        }
-//                    })
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .dontAnimate()
-//                    .into(holder.imgView_postPic);
-//
-////            Glide.with(context).load(modelFeed.getMedia().get(0).getFile_data()).dontAnimate().into(holder.imgView_postPic);
+
+
+
+
+//        final PagerAdapter receive = addData(position);
+//        if(receive == null)
+//        {
+////             View namebar = View.findViewById(R.id.namebar);
+//            ((ViewGroup) holder.vp.getParent()).removeView(holder.vp);
 //        }
-//        else{
-////            holder.imgView_postPic.setVisibility(View.GONE);
+//        else
+//        {
+//
+//
+//            holder.vp.setId(position+1);
+//            holder.vp.setAdapter(receive);
+//
 //        }
+        String t = posts.get(position).getVideo();
 
-
-//        MediaAdapter ma = new MediaAdapter();
-//        holder.vp.setAdapter(ma);
-
-//        final ArrayList<Fragment> fragments = new ArrayList<>();
-//        List<String> medias = modelFeed.getMedia();
-//
-//        for(String media : medias){
-//            MediaAdapter fragment = MediaAdapter.getInstance(media);
-//            fragments.add(fragment);
-//        }
-//
-//        MyPagerAdapter pagerAdapter = new MyPagerAdapter(fragmentManager, fragments);
-//        holder.vp.setAdapter(pagerAdapter);
-//
-//
-//
-//
-//         ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-//
-//            @Override
-//            public void onPageSelected(int position) {
-////                System.out.println(viewPager);
-////                System.out.println("view pager");
-////
-//                MediaAdapter one = (MediaAdapter) fragments.get(holder.vp.getCurrentItem());
-//                System.out.println("fragement : " + one);
-//                if(one.link.endsWith(".mp4")){
-//                    one.bar.setVisibility(View.VISIBLE);
-//                    one.mVideo.setMediaController(one.mediacontroller);
-////                System.out.println(one.uri);
-//                    one.mVideo.setVideoURI(Uri.parse(one.link));
-//                    one.mVideo.requestFocus();
-//                    one.mVideo.start();}
-//                else
-//                {
-//
-////                    ((MediaAdapter)fragments.get(holder.vp.getCurrentItem()-1)).mVideo.stopPlayback();
-//                    Glide.with(context).load(one.link).into(one.mImage);
-//                }
-//
-//            }
-//
-//
-//        };
-//        holder.vp.addOnPageChangeListener(pageChangeListener);
-
-
-
-
-        final PagerAdapter receive = addData(position);
-        if(receive == null)
-        {
-//             View namebar = View.findViewById(R.id.namebar);
+        if(!t.equals("")){
             ((ViewGroup) holder.vp.getParent()).removeView(holder.vp);
+            holder.mVideo.setVisibility(View.VISIBLE);
+            VideoControls controls = holder.mVideo.getVideoControls();
+            controls.hide();
+            holder.play.setVisibility(View.VISIBLE);
+            holder.mVideo.setScaleType(ScaleType.CENTER_CROP);
+            holder.mVideo.setMeasureBasedOnAspectRatioEnabled(false);
+
+//            holder.mVideo.setOnPreparedListener(this);
         }
-        else
-        {
+
+        else {
 
 
-            holder.vp.setId(position+1);
-            holder.vp.setAdapter(receive);
+            final PagerAdapter receive = addData(position);
+            if (receive == null) {
+//             View namebar = View.findViewById(R.id.namebar);
+                ((ViewGroup) holder.vp.getParent()).removeView(holder.vp);
+            } else {
 
 
+                holder.vp.setId(position + 1);
+                holder.vp.setAdapter(receive);
 
-
-
-//        viewPager.setAdapter(adapter);
-//        viewPager.setCurrentItem(0);
-//            ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-//
-//                @Override
-//                public void onPageSelected(int position) {
-////                System.out.println(viewPager);
-////                System.out.println("view pager");
-//                    MediaAdapter one = new MediaAdapter(context);
-//                    one = (MediaAdapter) receive.mediaFragments.get(holder.vp.getCurrentItem());
-////                System.out.println("fragement : " + one);
-//                    if(one.link.endsWith(".mp4")){
-//                        one.bar.setVisibility(View.VISIBLE);
-//                        one.mVideo.setMediaController(MediaAdapter.mediaController);
-////                System.out.println(one.uri);
-////                    one.mVideo.setVideoURI(Uri.parse(one.link));
-//                        one.mVideo.setVideoURI(Uri.parse(one.link));
-//                        one.mVideo.requestFocus();
-//                        one.mVideo.start();}
-////                else
-////                {
-////                    ((MediaAdapter)receive.mediaFragments.get(holder.vp.getCurrentItem()-1)).mVideo.stopPlayback();
-////                    Glide.with(MainActivity.this).load(one.url).into(one.iv);
-////                }
-//
-//                }
-//            };
-////
-//            holder.vp.addOnPageChangeListener(pageChangeListener);
-
-
-
+            }
         }
+        holder.play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideoControls controls = holder.mVideo.getVideoControls();
+                controls.show();
+                holder.mVideo.setVideoURI(Uri.parse(t));
+                holder.mVideo.start();
+                holder.play.setVisibility(View.GONE);
+            }
+        });
 
 
 
@@ -375,7 +303,8 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.MyViewHold
         ProgressBar progressBar;
         ViewPager vp;
         TabLayout tl;
-        ImageView imgView_like, imgView_liked, imgView_dislike, imgView_disliked;
+        ImageView imgView_like, imgView_liked, imgView_dislike, imgView_disliked, play;
+        public VideoView mVideo;
         private GestureDetector lGestureDetector;
         private GestureDetector dGestureDetector;
         private LikesToggle like;
@@ -422,7 +351,8 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.MyViewHold
             imgView_disliked.setVisibility(View.GONE);
             imgView_dislike.setVisibility(View.VISIBLE);
 
-
+            mVideo = itemView.findViewById(R.id.videoplayervp);
+            play = itemView.findViewById(R.id.startvideo);
 
 
 
