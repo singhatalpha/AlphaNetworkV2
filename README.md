@@ -1,3 +1,3 @@
-# AlphaNetworkV2
+# AlphaNetwork
 
 https://youtu.be/JGuShbD1d-Q
